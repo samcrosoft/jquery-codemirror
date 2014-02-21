@@ -4,13 +4,14 @@
   _ATTR_PREFIX          = "code-mirror"
   _ATTR_JOIN_CHARACTER  = "-"
   _DEFAULT_SETTINGS =
-    'mode' : 'javascript'
+    'mode'        : 'javascript'
     'lineNumbers' : on
-    'runmode' : off
+    'runmode'     : off
 
-  _ATTR_OPTIONS = [
-    'mode'
-    'runmode']
+  _ATTR_OPTIONS =
+    'mode'        : "mode"
+    'runmode'     :"runmode"
+    'linenumbers' :"lineNumbers"
 
 
   ###
@@ -24,12 +25,11 @@
 ###
   _buildHTMLOptions = (oObject) ->
     aOptions = {}
-    for item, i in _ATTR_OPTIONS
-      sAttrName = [_ATTR_PREFIX, item].join _ATTR_JOIN_CHARACTER
+    for sItemKey,sItemVal of _ATTR_OPTIONS
+      sAttrName = [_ATTR_PREFIX, sItemKey].join _ATTR_JOIN_CHARACTER
       sAttrVal = $(oObject).data sAttrName
       if typeof sAttrName isnt "undefined" and typeof sAttrVal isnt "undefined"
-        aOptions[item] = sAttrVal
-
+        aOptions[sItemVal] = sAttrVal
     return aOptions
 
     return
@@ -42,8 +42,12 @@
     oSettings             = _buildSettings(oOptions)
 
     @each () ->
+      # clone the object setting for each unique instance
+      oOptionSettings = {}
+      $.extend oOptionSettings, oSettings
+      # build the html options
       oHTMLAttrSettings = _buildHTMLOptions(@)
-      oUniqueSetting = $jQ.extend oSettings, oHTMLAttrSettings
+      oUniqueSetting = $jQ.extend oOptionSettings, oHTMLAttrSettings
       # create the instance here
       oCodeMirrorObject = CodeMirror.fromTextArea @, oUniqueSetting
       return

@@ -9,7 +9,11 @@
     'lineNumbers': true,
     'runmode': false
   };
-  _ATTR_OPTIONS = ['mode', 'runmode'];
+  _ATTR_OPTIONS = {
+    'mode': "mode",
+    'runmode': "runmode",
+    'linenumbers': "lineNumbers"
+  };
   /*
   build the settings here
   */
@@ -25,14 +29,14 @@
   */
 
   _buildHTMLOptions = function(oObject) {
-    var aOptions, i, item, sAttrName, sAttrVal, _i, _len;
+    var aOptions, sAttrName, sAttrVal, sItemKey, sItemVal;
     aOptions = {};
-    for (i = _i = 0, _len = _ATTR_OPTIONS.length; _i < _len; i = ++_i) {
-      item = _ATTR_OPTIONS[i];
-      sAttrName = [_ATTR_PREFIX, item].join(_ATTR_JOIN_CHARACTER);
+    for (sItemKey in _ATTR_OPTIONS) {
+      sItemVal = _ATTR_OPTIONS[sItemKey];
+      sAttrName = [_ATTR_PREFIX, sItemKey].join(_ATTR_JOIN_CHARACTER);
       sAttrVal = $(oObject).data(sAttrName);
       if (typeof sAttrName !== "undefined" && typeof sAttrVal !== "undefined") {
-        aOptions[item] = sAttrVal;
+        aOptions[sItemVal] = sAttrVal;
       }
     }
     return aOptions;
@@ -49,9 +53,11 @@
     oCodeMirrorObject = this;
     oSettings = _buildSettings(oOptions);
     this.each(function() {
-      var oHTMLAttrSettings, oUniqueSetting;
+      var oHTMLAttrSettings, oOptionSettings, oUniqueSetting;
+      oOptionSettings = {};
+      $.extend(oOptionSettings, oSettings);
       oHTMLAttrSettings = _buildHTMLOptions(this);
-      oUniqueSetting = $jQ.extend(oSettings, oHTMLAttrSettings);
+      oUniqueSetting = $jQ.extend(oOptionSettings, oHTMLAttrSettings);
       oCodeMirrorObject = CodeMirror.fromTextArea(this, oUniqueSetting);
     });
     return oCodeMirrorObject;
