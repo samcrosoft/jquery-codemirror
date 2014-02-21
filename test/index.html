@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.14.0.css"/>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
+    <script src="../src/jquery.codemirror.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.21.0/codemirror.css"/>
+    <script src="http://cdn.jsdelivr.net/codemirror/3.21.0/codemirror.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/codemirror/3.21.0/theme/neat.css"/>
+    <script src="http://cdn.jsdelivr.net/codemirror/3.21.0/mode/xml/xml.js"></script>
+    <script src="http://cdn.jsdelivr.net/codemirror/3.21.0/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="http://cdn.jsdelivr.net/codemirror/3.21.0/mode/javascript/javascript.js"></script>
+    <script src="http://cdn.jsdelivr.net/codemirror/3.21.0/mode/css/css.js"></script>
+
+    <script src="tests.js"></script>
+
+    <title>JQuery Code Mirror Test</title>
+</head>
+<body>
+    <textarea name="testeditor" data-code-mirror-lineNumbers="false" data-code-mirror-mode="xml" class="codestart" cols="30" rows="10"></textarea>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <style type="text/css">
+        textarea{
+            display: none;
+            visibility: hidden;
+        }
+
+        .CodeMirror{
+            display: none;
+        }
+    </style>
+</body>
+</html>
